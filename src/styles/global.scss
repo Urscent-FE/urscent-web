@@ -1,3 +1,12 @@
-h1 {
-  color: green;
+@import './base/nomalize';
+
+@import './constants/colors';
+@import './constants/typography';
+
+@import './mixins/flexbox';
+@import './mixins/positions';
+
+* {
+  font-family: 'Noto-sans';
+  box-sizing: border-box;
 }
