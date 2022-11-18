@@ -4,11 +4,12 @@ import { HomePage } from './pages/HomePage';
 import { RecoilRoot } from 'recoil';
 
 export const App: React.FC = () => {
+  const test = 'b';
   return (
     <RecoilRoot>
       <BrowserRouter>
         <div>
-          <h1>hello</h1>
+          <h1>hello{test}</h1>
           <img src={MyLogo} />
         </div>
         <Routes>
