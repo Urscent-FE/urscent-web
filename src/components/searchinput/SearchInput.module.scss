@@ -1,0 +1,33 @@
+.searchBox {
+  position: relative;
+  margin-bottom: 0.4rem;
+
+  .searchInput {
+    width: 25.5rem;
+    height: 2.2rem;
+    font-size: 0.9rem;
+    border: 1px solid #333333;
+    color: #666666;
+    outline: none;
+    padding-left: 1rem;
+  }
+
+  .searchButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.35rem 1rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    & svg {
+      width: 1.5rem;
+      height: 1.5em;
+    }
+
+    &:hover path {
+      stroke: #8ab4f8;
+    }
+  }
+}

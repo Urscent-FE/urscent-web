@@ -10,3 +10,28 @@
   font-family: 'Noto-sans';
   box-sizing: border-box;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.init-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.init-body {
+  width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 150px);
+}
+
+.content-box {
+  width: 100%;
+  max-width: 80rem;
+}
