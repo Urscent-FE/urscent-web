@@ -8,12 +8,6 @@ const Dotenv = require('dotenv-webpack');
 module.exports = merge(common, {
   mode: 'development',
   entry: './src/Index.tsx',
-  devServer: {
-    historyApiFallback: true,
-    port: 3000,
-    hot: true,
-    open: true,
-  },
   module: {
     rules: [
       {

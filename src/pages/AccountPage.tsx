@@ -1,15 +1,18 @@
-import { Route, Routes } from 'react-router-dom';
-import { LoginPage } from './Loginpage';
-import { SignupPage } from './SignupPage';
+import { Outlet } from 'react-router-dom';
+import styles from './AccountPage.module.scss';
+import HomeLogo from '@/assets/svg/home-logo.svg';
+import { Link } from 'react-router-dom';
 
 export const AccountPage = () => {
   return (
     <div>
-      <h1>logo</h1>
-      <Routes>
-        <Route path='/account/login' element={<LoginPage />} />
-        <Route path='/account/sign-up' element={<SignupPage />} />
-      </Routes>
+      <div className={styles.accountBox}>
+        <Link to='/'>
+          <img className={styles.logo} src={HomeLogo} />
+        </Link>
+        <Outlet />
+      </div>
+      {/* <div>hi</div> */}
     </div>
   );
 };

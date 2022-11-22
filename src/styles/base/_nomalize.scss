@@ -80,6 +80,7 @@ input,
 optgroup,
 select,
 textarea {
+  display: block;
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
@@ -174,6 +175,10 @@ summary {
 
 template {
   display: none;
+}
+
+label {
+  display: block;
 }
 
 [hidden] {
