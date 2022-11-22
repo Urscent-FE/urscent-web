@@ -6,6 +6,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/Index.tsx',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true,
+    port: 3000,
+    hot: true,
+    open: true,
+  },
   module: {
     rules: [
       {
