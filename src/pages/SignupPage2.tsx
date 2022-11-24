@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AirBlock } from '@/components/airblock/AirBlock';
 import { InputBox } from '@/components/inputbox/InputBox';
@@ -6,7 +6,7 @@ import { LabelBox } from '@/components/labelbox/labelBox';
 import { CheckBox } from '@/components/checkbox/CheckBox';
 import styles from './SignupPage.module.scss';
 
-export const SignupPage = () => {
+export const SignupPage2 = () => {
   const [id, setID] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -15,65 +15,71 @@ export const SignupPage = () => {
   const [gender, setGender] = useState('');
   const [agree, setAgree] = useState(false);
 
-  const regexPw = /^[a-z0-9#?!@$%^&*-]{10,20}$/;
+  const [idFail, setIdFail] = useState('');
+  const [pwFail, setPwFail] = useState('');
+  const [pw2Fail, setPw2Fail] = useState('');
+  const [emailFail, setEmailFail] = useState('계정 분실 시 본인인증 정보로 활용됩니다.');
+  const [btnActivate, setBtnActivate] = useState(false);
+
+  const regexId = /^[a-z0-9](?=.*[a-z])(?=.*\d)[a-z0-9]{4,10}$/; // 2,3개씩 차이남
+  const regexPw =
+    /^[a-z0-9#?!@$%^&*-](?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-])[a-z0-9#?!@$%^&*-]{8,18}$/;
   const regexEmail = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  const idCheck = regexEmail.test(id);
-  const pwCheck = regexPw.test(password);
-  const emailCheck = regexEmail.test(email);
+  const idCheck = id && regexId.test(id);
+  const pwCheck = password && regexPw.test(password);
+  const emailCheck = email && regexEmail.test(email);
+  console.log(password);
+  console.log(password2);
+  console.log(password === password2);
 
-  const idValid = useMemo(() => {
-    if (id && !idCheck) {
+  const validate = () => {
+    if (!idCheck) {
+      setIdFail('아이디는 영문소문자, 숫자 6-12자만 가능합니다.');
       return false;
     }
-    return true;
-  }, [id]);
-
-  const pwValid = useMemo(() => {
-    if (password && !pwCheck) {
+    setIdFail('');
+    if (!pwCheck) {
+      setPwFail('비밀번호는 영문소문자, 숫자, 특수문자 10-20자만 가능합니다.');
       return false;
     }
-    return true;
-  }, [password]);
-
-  const pw2Valid = useMemo(() => {
+    setPwFail('');
     if (password !== password2) {
+      setPw2Fail('비밀번호가 일치하지 않습니다.');
       return false;
     }
-    return true;
-  }, [password2]);
+    setPw2Fail('');
 
-  const emailValid = useMemo(() => {
-    if (email && !emailCheck) {
+    if (!emailCheck) {
+      setEmailFail('이메일은 aaaa@bbbb.cc형식입니다.');
       return false;
     }
-    return true;
-  }, [email]);
+    setEmailFail('계정 분실 시 본인인증 정보로 활용됩니다.');
 
-  const validChecking = useMemo(() => {
-    if (idValid && pwValid && pw2Valid && emailValid && agree) {
-      return true;
+    validChecking();
+  };
+
+  const validChecking = () => {
+    console.log(`id : ${idCheck}, email : ${emailCheck}, agree: ${agree}`);
+    console.log(`agree : ${agree}`);
+
+    const checking = idCheck && emailCheck && agree;
+    if (checking) {
+      setBtnActivate(true);
+      onSubmit();
     }
-    return false;
-  }, [id, password, password2, email, agree]);
+    setBtnActivate(false);
+  };
+
+  // console.log(`btnActivate: ${btnActivate}`);
+  console.log(`agree : ${agree}`);
 
   const onSubmit = () => {
-    if (validChecking) {
-      console.log('onSubmit');
-    }
+    console.log(onSubmit);
   };
 
   const handleClickGender = (clickedGender: string) => {
     if (gender && gender === clickedGender) {
       return setGender('');
-    }
-    setGender(clickedGender);
-  };
-
-  const inputRegexCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const regExp = /[^a-z0-9#?!@$%^&*-]/g;
-    const input = event.currentTarget;
-    if (regExp.test(input.value)) {
-      input.value = input.value.replace(regExp, '');
     }
   };
 
@@ -85,8 +91,9 @@ export const SignupPage = () => {
         autoComplete='username'
         setValue={setID}
         required
+        inputValidate={validate}
       />
-      {idValid ? '' : <span className={styles.signUpinfo}>아이디는 이메일 형식입니다.</span>}
+      {idFail ? <span className={styles.signUpinfo}>{idFail}</span> : ''}
 
       <AirBlock height={1} />
       <InputBox
@@ -96,16 +103,9 @@ export const SignupPage = () => {
         autoComplete='current-password'
         setValue={setPassword}
         required
-        maxLength={20}
-        inputRegexCheck={inputRegexCheck}
+        inputValidate={validate}
       />
-      {pwValid ? (
-        ''
-      ) : (
-        <span className={styles.signUpinfo}>
-          비밀번호는 영문소문자, 숫자, 특수문자 10-20자만 가능합니다.
-        </span>
-      )}
+      {pwFail ? <span className={styles.signUpinfo}>{pwFail}</span> : ''}
 
       <InputBox
         placeholder='비밀번호 재입력'
@@ -113,8 +113,9 @@ export const SignupPage = () => {
         autoComplete='current-password'
         setValue={setPassword2}
         required
+        inputValidate={validate}
       />
-      {pw2Valid ? '' : <span className={styles.signUpinfo}>비밀번호가 일치하지 않습니다.</span>}
+      {pw2Fail ? <span className={styles.signUpinfo}>{pw2Fail}</span> : ''}
 
       <AirBlock height={2.5} />
       <InputBox
@@ -145,8 +146,9 @@ export const SignupPage = () => {
         type='email'
         setValue={setEmail}
         required
+        inputValidate={validate}
       />
-      <div className={styles.signUpinfo}>계정 분실 시 본인인증 정보로 활용됩니다.</div>
+      <div className={styles.signUpinfo}>{emailFail}</div>
       <AirBlock height={4} />
       <div className={styles.privacyPolicy}>
         <CheckBox
@@ -154,6 +156,7 @@ export const SignupPage = () => {
           type='square'
           checked={agree}
           setChecked={setAgree}
+          inputValidate={validChecking}
         />
         <Link to='/' className={styles.privacyPolicyDetail}>
           자세히
@@ -163,9 +166,8 @@ export const SignupPage = () => {
       {/* 추후에 조건 변경 필요 validation to form */}
       <button
         className={`commonButton ${
-          validChecking ? styles.signupButtonActivation : styles.signupButtonDeActivation
-        }`}
-        onClick={onSubmit}>
+          btnActivate ? styles.signupButtonActivation : styles.signupButtonDeActivation
+        }`}>
         회원가입
       </button>
     </div>
