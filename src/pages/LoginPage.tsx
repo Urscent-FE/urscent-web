@@ -32,13 +32,13 @@ export const LoginPage = () => {
   }, [password]);
 
   const validChecking = useMemo(() => {
-    if (idValid && pwValid) {
+    if ('' !== id && idValid && '' !== password && pwValid) {
       return true;
     }
     return false;
   }, [id, password]);
 
-  const inputRegexCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const inputUpperCaseCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const regExp = /[^a-z0-9#?!@$%^&*-]/g;
     const input = event.currentTarget;
     if (regExp.test(input.value)) {
@@ -73,7 +73,7 @@ export const LoginPage = () => {
         type='password'
         autoComplete='current-password'
         setValue={setPassword}
-        inputRegexCheck={inputRegexCheck}
+        inputUpperCaseCheck={inputUpperCaseCheck}
       />
       {pwValid ? (
         ''

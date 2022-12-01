@@ -10,7 +10,7 @@ interface ICheckBoxProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   required?: boolean;
   maxLength?: number;
-  inputRegexCheck?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  inputUpperCaseCheck?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const InputBox = forwardRef<HTMLInputElement, ICheckBoxProps>(
@@ -23,7 +23,7 @@ export const InputBox = forwardRef<HTMLInputElement, ICheckBoxProps>(
       setValue,
       required,
       maxLength,
-      inputRegexCheck,
+      inputUpperCaseCheck,
     },
     ref,
   ) => {
@@ -42,7 +42,7 @@ export const InputBox = forwardRef<HTMLInputElement, ICheckBoxProps>(
           autoComplete={autoComplete}
           onInput={handleInput}
           maxLength={maxLength}
-          onKeyUp={inputRegexCheck}
+          onKeyUp={inputUpperCaseCheck}
         />
       </>
     );

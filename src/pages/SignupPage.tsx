@@ -50,7 +50,7 @@ export const SignupPage = () => {
   }, [email]);
 
   const validChecking = useMemo(() => {
-    if (idValid && pwValid && pw2Valid && emailValid && agree) {
+    if ('' !== id && idValid && '' !== password && pwValid && pw2Valid && emailValid && agree) {
       return true;
     }
     return false;
@@ -69,7 +69,7 @@ export const SignupPage = () => {
     setGender(clickedGender);
   };
 
-  const inputRegexCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const inputUpperCaseCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const regExp = /[^a-z0-9#?!@$%^&*-]/g;
     const input = event.currentTarget;
     if (regExp.test(input.value)) {
@@ -97,7 +97,7 @@ export const SignupPage = () => {
         setValue={setPassword}
         required
         maxLength={20}
-        inputRegexCheck={inputRegexCheck}
+        inputUpperCaseCheck={inputUpperCaseCheck}
       />
       {pwValid ? (
         ''
