@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { HomeFooter } from '@/components/homefooter/HomeFooter';
 import { HomeHeader } from '@/components/homeheader/HomeHeader';
-import { Pagenation } from '@/components/pagenation/Pagenation2';
+import { Pagenation } from '@/components/pagenation/Pagenation';
 
 export const HomePage = () => {
   const [userLogin, setUserLogin] = useState(false);
