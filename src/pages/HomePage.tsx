@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { HomeFooter } from '@/components/homefooter/HomeFooter';
 import { HomeHeader } from '@/components/homeheader/HomeHeader';
-import { Pagenation } from '@/components/pagenation/Pagenation';
+import { Pagenation } from '@/components/pagenation/Pagenation2';
 
 export const HomePage = () => {
   const [userLogin, setUserLogin] = useState(false);
@@ -16,7 +16,7 @@ export const HomePage = () => {
             maxPage={49}
             currentPage={pagenation}
             setCurrentPage={setPagenation}
-            visiblePageCount={5}
+            visiblePageCount={10}
           />
           <Outlet />
         </main>
