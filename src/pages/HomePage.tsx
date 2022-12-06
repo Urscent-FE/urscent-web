@@ -16,7 +16,7 @@ export const HomePage = () => {
             maxPage={49}
             currentPage={pagenation}
             setCurrentPage={setPagenation}
-            visiblePageCount={10}
+            visiblePageCount={7}
           />
           <Outlet />
         </main>

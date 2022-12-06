@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Pagenation.module.scss';
 
 interface IPagenationProps {
@@ -16,7 +16,9 @@ export const Pagenation: React.FC<IPagenationProps> = ({
   visiblePageCount,
   autoCenter = false,
 }) => {
-  const lastPageCount = maxPage % visiblePageCount;
+  const [pageList, setPageList] = useState<number[]>([]);
+
+  const lastPageCount = maxPage % visiblePageCount || visiblePageCount;
   const lastPageFirst = maxPage + 1 - lastPageCount;
 
   // autoCenter = true
@@ -25,7 +27,7 @@ export const Pagenation: React.FC<IPagenationProps> = ({
   const half = Math.ceil(visiblePageCount / 2);
   const lasthalf = Math.ceil(maxPage - half);
 
-  const pageList = useMemo(() => {
+  const calculatePageList = () => {
     if (autoCenter) {
       if (1 === currentPage || half >= currentPage) {
         return Array.from({ length: end }, (_, index) => index + 1);
@@ -48,14 +50,15 @@ export const Pagenation: React.FC<IPagenationProps> = ({
       );
     }
     // 페이지 리스트 첫 부분에 위치한 경우
-    if (1 === currentPage % visiblePageCount) {
-      return Array.from({ length: visiblePageCount }, (_, index) => currentPage + index);
-    }
     // 중간 부분에 위치한 경우
     return Array.from(
       { length: visiblePageCount },
       (_, index) => Math.floor(currentPage / visiblePageCount) * visiblePageCount + index + 1,
     );
+  };
+
+  useEffect(() => {
+    setPageList(calculatePageList());
   }, [currentPage]);
 
   const onClickPrevButton = () => {
