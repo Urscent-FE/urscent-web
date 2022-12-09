@@ -14,29 +14,28 @@ export const Pagenation: React.FC<IPagenationProps> = ({
   setCurrentPage,
   visiblePageCount,
 }) => {
-  const beforePageBase = Math.floor(currentPage / visiblePageCount - 1) * visiblePageCount;
-  const currentPageBase = Math.floor(currentPage / visiblePageCount) * visiblePageCount;
-  const nextPageBase = Math.ceil(currentPage / visiblePageCount) * visiblePageCount;
-  const lastPageCount = maxPage % visiblePageCount;
-  const secondPageFirst = visiblePageCount + 1;
+  const lastPageCount = maxPage % visiblePageCount || visiblePageCount;
   const lastPageFirst = maxPage - lastPageCount + 1;
 
   const pageList = useMemo(() => {
     if (lastPageFirst <= currentPage) {
-      return Array.from({ length: lastPageCount }, (_, index) => currentPageBase + index + 1);
+      return Array.from({ length: lastPageCount }, (_, index) => lastPageFirst + index);
     }
     if (0 === currentPage % visiblePageCount) {
-      return Array.from({ length: visiblePageCount }, (_, index) => beforePageBase + index + 1);
+      return Array.from(
+        { length: visiblePageCount },
+        (_, index) => currentPage - visiblePageCount + index + 1,
+      );
     }
-    if (1 >= currentPage) {
-      return Array.from({ length: visiblePageCount }, (_, index) => index + 1);
-    }
-    return Array.from({ length: visiblePageCount }, (_, index) => currentPageBase + index + 1);
+    return Array.from(
+      { length: visiblePageCount },
+      (_, index) => Math.floor(currentPage / visiblePageCount) * visiblePageCount + index + 1,
+    );
   }, [currentPage]);
 
   return (
     <div className={styles.flex}>
-      {currentPage < secondPageFirst ? (
+      {currentPage <= visiblePageCount ? (
         ''
       ) : (
         <button className={styles.button} onClick={() => setCurrentPage(1)}>
@@ -46,18 +45,12 @@ export const Pagenation: React.FC<IPagenationProps> = ({
       <button
         className={styles.button}
         onClick={() => {
-          setCurrentPage((prev) => {
-            if (secondPageFirst > prev) {
-              return prev;
-            }
-            if (0 === prev % visiblePageCount) {
-              return beforePageBase - visiblePageCount + 1;
-            }
-            if (secondPageFirst <= prev) {
-              return beforePageBase + 1;
-            }
-            return prev;
-          });
+          if (currentPage <= visiblePageCount) {
+            return;
+          }
+          setCurrentPage(
+            (prev) => (Math.floor((prev - 1) / visiblePageCount) - 1) * visiblePageCount + 1,
+          );
         }}>
         ◀
       </button>
@@ -76,17 +69,12 @@ export const Pagenation: React.FC<IPagenationProps> = ({
 
       <button
         className={styles.button}
-        onClick={() =>
-          setCurrentPage((prev) => {
-            if (lastPageFirst <= prev) {
-              return prev;
-            }
-            if (lastPageFirst > prev) {
-              return nextPageBase + 1;
-            }
-            return prev;
-          })
-        }>
+        onClick={() => {
+          if (lastPageFirst <= currentPage) {
+            return;
+          }
+          setCurrentPage((prev) => Math.ceil(prev / visiblePageCount) * visiblePageCount + 1);
+        }}>
         ▶
       </button>
       {currentPage < lastPageFirst ? (
