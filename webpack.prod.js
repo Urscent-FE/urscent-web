@@ -41,6 +41,7 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new Dotenv({
       path: path.resolve(__dirname, './.env.production'),
     }),
