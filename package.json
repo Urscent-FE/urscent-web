@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js",
+    "serve": "serve -s dist",
     "tsc": "tsc",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",

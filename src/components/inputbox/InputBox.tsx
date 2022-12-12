@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { LabelBox } from '@/components/labelbox/labelBox';
+import { LabelBox } from '@/components/labelbox/LabelBox';
 import styles from './InputBox.module.scss';
 
 interface ICheckBoxProps {

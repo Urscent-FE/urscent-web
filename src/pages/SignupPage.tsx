@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AirBlock } from '@/components/airblock/AirBlock';
 import { InputBox } from '@/components/inputbox/InputBox';
-import { LabelBox } from '@/components/labelbox/labelBox';
+import { LabelBox } from '@/components/labelbox/LabelBox';
 import { CheckBox } from '@/components/checkbox/CheckBox';
 import styles from './SignupPage.module.scss';
 
