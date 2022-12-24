@@ -1,0 +1,34 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contentBox {
+  & > label {
+    padding-left: 0.5rem;
+    cursor: pointer;
+  }
+
+  & > input {
+    cursor: pointer;
+  }
+}
+
+.inside {
+  padding: 0.5rem;
+}
+
+.labelbox {
+  width: 100%;
+  gap: 0.7rem;
+
+  .label {
+    width: 5.6rem;
+    text-align: center;
+  }
+}
+
+.rangeInput {
+  margin: 0 auto 0.5rem;
+}
