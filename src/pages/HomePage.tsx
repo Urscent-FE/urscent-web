@@ -41,12 +41,6 @@ export const HomePage = () => {
           setValue={setRange2}
         />
         <main>
-          <Pagenation
-            maxPage={49}
-            currentPage={pagenation}
-            setCurrentPage={setPagenation}
-            visiblePageCount={7}
-          />
           <Outlet />
         </main>
         <HomeFooter />
