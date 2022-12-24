@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
-import styles from './GuestMenu.module.scss';
 
 export const GuestMenu = () => {
   return (
-    <ul className={styles.guesetMenu}>
-      <li>
-        <Link to='account/login'>LOGIN</Link>
+    <ul className='flex text-xl font-bold'>
+      <li className='mr-10'>
+        <Link to='account/login'>LOG IN</Link>
       </li>
-      <li>
-        <Link to='account/sign-up'>회원가입</Link>
+      <li className='mr-10'>
+        <Link to='account/sign-up'>SIGN UP</Link>
       </li>
     </ul>
   );

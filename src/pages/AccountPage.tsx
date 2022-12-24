@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import styles from './AccountPage.module.scss';
-import HomeLogo from '@/assets/svg/home-logo.svg';
+import { UrscentLogo } from '@/assets/icons/UrscentLogo';
 import { Link } from 'react-router-dom';
 
 export const AccountPage = () => {
@@ -8,7 +8,7 @@ export const AccountPage = () => {
     <div>
       <div className={styles.accountBox}>
         <Link to='/'>
-          <img className={styles.logo} src={HomeLogo} />
+          <UrscentLogo />
         </Link>
         <Outlet />
       </div>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import styles from './HomeHeader.module.scss';
-import HomeLogo from '../../assets/svg/home-logo.svg';
 import { GuestMenu } from '../guestmenu/GuestMenu';
 import { SearchInput } from '../searchinput/SearchInput';
 import { UserMenu } from '../usermenu/UserMenu';
+import { UrscentLogo } from '@/assets/icons/UrscentLogo';
 
 export const HomeHeader: React.FC<IHomeHeaderProps> = ({ userLogin }) => {
   const [searchText, setSearchText] = useState('');
@@ -13,35 +12,34 @@ export const HomeHeader: React.FC<IHomeHeaderProps> = ({ userLogin }) => {
     console.log(searchText);
   };
 
+  const whenTabActive = (isActive: boolean): string => {
+    if (isActive) {
+      return 'text-[#9859E7]';
+    }
+    return 'text-[#191919]';
+  };
+
   return (
-    <header className={styles.header}>
-      <div className={`content-box ${styles.headerbox}`}>
+    <header className='w-full h-28 mb-2 px-16 border-b border-b-[#9859E7] border-opacity-30 flex justify-center'>
+      <div className='w-full max-w-7xl flex justify-between items-center'>
         <Link to='/'>
-          <img className={styles.logo} src={HomeLogo} />
+          <UrscentLogo width={228.2} />
         </Link>
-        <nav>
-          <ul>
-            <li>
-              <NavLink
-                to='/notes'
-                className={({ isActive }) => {
-                  return isActive ? 'selected' : '';
-                }}>
-                Notes
+        <nav className='w-full'>
+          <ul className='flex text-xl font-bold'>
+            <li className='ml-10'>
+              <NavLink to='/notes' className={({ isActive }) => whenTabActive(isActive)}>
+                NOTES
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to='/perfume-brand'
-                className={({ isActive }) => {
-                  return isActive ? 'selected' : '';
-                }}>
-                Perfume Brand
+            <li className='ml-10'>
+              <NavLink to='/perfume-brand' className={({ isActive }) => whenTabActive(isActive)}>
+                BRAND
               </NavLink>
             </li>
           </ul>
         </nav>
-        <div>
+        <div className='flex w-full justify-end items-center'>
           {userLogin ? <UserMenu /> : <GuestMenu />}
           <SearchInput onInput={setSearchText} onSearch={requestSearch} />
         </div>
