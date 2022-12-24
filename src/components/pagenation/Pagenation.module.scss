@@ -1,0 +1,21 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.accord {
+  color: darkorchid;
+}
+
+.disaccord {
+  color: dimgray;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
