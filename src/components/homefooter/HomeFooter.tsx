@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './HomeFooter.module.scss';
 import Instagram from '../../assets/svg/instagram.svg';
 import Email from '../../assets/svg/e-mail.svg';
-import HomeLogo from '../../assets/svg/home-logo.svg';
+import { UrscentLogo } from '@/assets/icons/UrscentLogo';
 
 const instagramUrl = 'https://www.instagram.com/magazine_speakeasy/';
 
@@ -11,7 +11,7 @@ export const HomeFooter: React.FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={`content-box ${styles.footerbox}`}>
-        <img className={styles.logo} src={HomeLogo} />
+        <UrscentLogo width={200} />
         <div className={styles.infoBox}>
           <div>
             <ul className={styles.siteMap}>

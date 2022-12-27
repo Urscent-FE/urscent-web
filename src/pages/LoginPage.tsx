@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
-import styles from './LoginPage.module.scss';
-import kakao from '@/assets/svg/kakao.svg';
 import { CheckBox } from '@/components/checkbox/CheckBox';
 import { Link } from 'react-router-dom';
 import { InputBox } from '@/components/inputbox/InputBox';
+import { UrscentLogo } from '@/assets/icons/UrscentLogo';
+import { AirBlock } from '@/components/airblock/AirBlock';
 
 export const LoginPage = () => {
-  const [id, setID] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [autoLogin, setAutoLogin] = useState(false);
@@ -14,29 +14,20 @@ export const LoginPage = () => {
 
   const regexPw = /^[a-z0-9#?!@$%^&*-]{10,20}$/;
   const regexEmail = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  const idCheck = regexEmail.test(id);
-  const pwCheck = regexPw.test(password);
 
-  const idValid = useMemo(() => {
-    if (id && !idCheck) {
-      return false;
+  const idMessage = useMemo(() => {
+    if (!email || regexEmail.test(email)) {
+      return '';
     }
-    return true;
-  }, [id]);
+    return '이메일 주소를 확인해주세요!';
+  }, [email]);
 
-  const pwValid = useMemo(() => {
-    if (password && !pwCheck) {
-      return false;
+  const pwMessage = useMemo(() => {
+    if (!password || regexPw.test(password)) {
+      return '';
     }
-    return true;
+    return '비밀번호를 확인해주세요!';
   }, [password]);
-
-  const validChecking = useMemo(() => {
-    if ('' !== id && idValid && '' !== password && pwValid) {
-      return true;
-    }
-    return false;
-  }, [id, password]);
 
   const inputUpperCaseCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const regExp = /[^a-z0-9#?!@$%^&*-]/g;
@@ -46,68 +37,51 @@ export const LoginPage = () => {
     }
   };
 
-  const onSubmit = () => {
-    if (validChecking) {
-      console.log('onSubmit');
-    }
-  };
-
   const idAndPwMatching = useMemo(() => {
     // 아이디 및 비밀번호 정보가 있는지 확인
     return true;
   }, [password]);
 
   return (
-    <div>
+    <div className='pb-24 h-full'>
+      <div className='text-4xl text-center mb-20 font-medium mt-20'>로그인</div>
+      <Link className='mb-20 flex justify-center' to='/'>
+        <UrscentLogo height={40} />
+      </Link>
       <InputBox
-        label='아이디'
-        placeholder='영문소문자, 숫자 6-12자 이내'
+        placeholder='이메일'
         autoComplete='username'
-        setValue={setID}
+        setValue={setEmail}
+        message={idMessage}
       />
-      {idValid ? '' : <span className={styles.loginInfo}>아이디는 이메일 형식입니다.</span>}
-
       <InputBox
-        label='비밀번호'
-        placeholder='영문소문자, 숫자, 특수문자 10-20자 이내'
+        placeholder='비밀번호'
         type='password'
         autoComplete='current-password'
         setValue={setPassword}
-        inputUpperCaseCheck={inputUpperCaseCheck}
+        message={pwMessage}
       />
-      {pwValid ? (
-        ''
-      ) : (
-        <span className={styles.loginInfo}>
-          비밀번호는 영문소문자, 숫자, 특수문자 10-20자만 가능합니다.
-        </span>
-      )}
-      {idAndPwMatching ? (
-        ''
-      ) : (
-        <span className={styles.loginInfo}>입력하신 아이디와 비밀번호가 일치하지 않습니다. </span>
-      )}
-      <div className={styles.checkboxList}>
-        <CheckBox label='자동 로그인' checked={autoLogin} setChecked={setAutoLogin} />
-        <CheckBox label='로그인 상태 유지' checked={keepLogin} setChecked={setKeepLogin} />
+      <div className='flex gap-9 pl-[2px]'>
+        <CheckBox label='자동로그인' checked={autoLogin} setChecked={setAutoLogin} />
+        <CheckBox label='이메일 저장' checked={keepLogin} setChecked={setKeepLogin} />
       </div>
-      <button className={`commonButton ${styles.loginButton}`}>로그인</button>
-      <span className={styles.or}>또는</span>
-      <button className={`commonButton ${styles.kakaoButton}`}>
-        <img src={kakao} />
+      <button className='w-[400px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] mt-12 hover:bg-[#4A484B] duration-400'>
+        로그인
+      </button>
+      <div className='w-[105px] border-defaulthalf mx-auto mt-12 border-2' />
+      <button className='w-[400px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] mt-12 hover:bg-[#4A484B] duration-400'>
         카카오 로그인
       </button>
-      <div className={styles.findAccount}>
-        <Link to='/'>아이디 찾기</Link>
-        <span>|</span>
-        <Link to='/'>비밀번호 찾기</Link>
-      </div>
-      <div className={styles.signUp}>
-        아직 회원이 아니신가요?
-        <Link to='/account/sign-up' className={styles.bold}>
+      <div className='mt-12 ml-[38px] flex items-center justify-center'>
+        <Link to='/account/sign-up' className='text-xl text-[#888] hover:text-[#333] duration-400'>
           회원가입
         </Link>
+        <div className='w-[6px] h-[6px] bg-[#9768D1] rounded-lg mt-[2px] mx-5' />
+        <Link to='/account/pwfound' className='text-xl text-[#888] hover:text-[#333] duration-400'>
+          비밀번호 찾기
+        </Link>
       </div>
+      <AirBlock height={3.5} />
     </div>
   );
 };

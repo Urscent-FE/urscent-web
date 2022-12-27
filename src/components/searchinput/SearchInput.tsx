@@ -19,16 +19,16 @@ export const SearchInput: React.FC<ISearchInputProps> = ({ onInput, onSearch }) 
   };
 
   return (
-    <div className={styles.searchBox}>
-      <input
+    <div className='relative'>
+      {/* <input
         type='text'
         className={styles.searchInput}
         placeholder='찾고 싶은 향수가 있으신가요?'
         maxLength={30}
         onInput={handleInput}
         onKeyPress={handleKeypress}
-      />
-      <button className={styles.searchButton} onClick={handleOnClickButton}>
+      /> */}
+      <button className='w-14 h-9 ' onClick={handleOnClickButton}>
         <SearchIcon />
       </button>
     </div>

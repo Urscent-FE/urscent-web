@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { LikeIcon } from '@/assets/icons/LikeIcon';
 import { AccountIcon } from '@/assets/icons/AccountIcon';
-import styles from './UserMenu.module.scss';
 
 export const UserMenu = () => {
   const logOut = () => {
@@ -11,17 +10,17 @@ export const UserMenu = () => {
   };
 
   return (
-    <ul className={styles.userMenuBox}>
-      <li onClick={logOut}>
-        <Link to='/'>로그아웃</Link>
+    <ul className='flex text-xl font-bold'>
+      <li onClick={logOut} className='mr-10'>
+        <Link to='/'>LOG OUT</Link>
       </li>
-      <li>
+      <li className='mr-5 pt-1'>
         {/* 좋아하는 리스트, 계정 정보 home에 nesting 되는지 새로운 layout 인지 확인 /like */}
         <Link to='/'>
           <LikeIcon />
         </Link>
       </li>
-      <li>
+      <li className='pt-1'>
         <Link to='/'>
           <AccountIcon />
         </Link>

@@ -1,16 +1,9 @@
 import React from 'react';
-import styles from './LabelBox.module.scss';
 
 interface ICheckBoxProps {
   label: string;
-  required?: boolean;
 }
 
-export const LabelBox: React.FC<ICheckBoxProps> = ({ label = '', required }) => {
-  return (
-    <label className={styles.label}>
-      {label}
-      {required ? <div className={styles.required} /> : ''}
-    </label>
-  );
+export const LabelBox: React.FC<ICheckBoxProps> = ({ label = '' }) => {
+  return <label className='text-xl font-medium text-[#191919] ml-2 mb-2'>{label}</label>;
 };

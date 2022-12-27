@@ -92,6 +92,24 @@ input {
   overflow: visible;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input::-ms-reveal {
+  display: none;
+}
+
+input[type='password']:not(:placeholder-shown) {
+  font-size: 3.6rem;
+  padding-bottom: 0.9rem;
+  letter-spacing: -0.34rem;
+  color: #4a484b;
+}
+
 button,
 select {
   text-transform: none;
