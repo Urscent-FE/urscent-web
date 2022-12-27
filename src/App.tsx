@@ -6,6 +6,7 @@ import { NotesPage } from '@/pages/NotesPage';
 import { PerfumeBrandPage } from '@/pages/PerfumeBrandPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SignupPage } from '@/pages/SignupPage';
+import { FoundAccountPage } from './pages/FoundAccountPage';
 
 export const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
           <Route path='/account' element={<AccountPage />}>
             <Route path='/account/login' element={<LoginPage />} />
             <Route path='/account/sign-up' element={<SignupPage />} />
+            <Route path='/account/pwfound' element={<FoundAccountPage />} />
           </Route>
           <Route path='/' element={<HomePage />}>
             <Route path='/notes' element={<NotesPage />} />

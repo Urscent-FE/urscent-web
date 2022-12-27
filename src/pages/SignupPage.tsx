@@ -4,57 +4,46 @@ import { AirBlock } from '@/components/airblock/AirBlock';
 import { InputBox } from '@/components/inputbox/InputBox';
 import { LabelBox } from '@/components/labelbox/LabelBox';
 import { CheckBox } from '@/components/checkbox/CheckBox';
-import styles from './SignupPage.module.scss';
+import { UrscentLogo } from '@/assets/icons/UrscentLogo';
 
 export const SignupPage = () => {
-  const [id, setID] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [birthYear, setBirthYear] = useState('');
-  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [gender, setGender] = useState('');
   const [agree, setAgree] = useState(false);
 
   const regexPw = /^[a-z0-9#?!@$%^&*-]{10,20}$/;
   const regexEmail = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  const idCheck = regexEmail.test(id);
-  const pwCheck = regexPw.test(password);
-  const emailCheck = regexEmail.test(email);
 
-  const idValid = useMemo(() => {
-    if (id && !idCheck) {
-      return false;
+  const emailMessage = useMemo(() => {
+    if (!email || regexEmail.test(email)) {
+      return '';
     }
-    return true;
-  }, [id]);
-
-  const pwValid = useMemo(() => {
-    if (password && !pwCheck) {
-      return false;
-    }
-    return true;
-  }, [password]);
-
-  const pw2Valid = useMemo(() => {
-    if (password !== password2) {
-      return false;
-    }
-    return true;
-  }, [password2]);
-
-  const emailValid = useMemo(() => {
-    if (email && !emailCheck) {
-      return false;
-    }
-    return true;
+    return '이메일 주소를 확인해주세요!';
   }, [email]);
 
+  const pwMessage = useMemo(() => {
+    if (!password && !password2) {
+      return '';
+    }
+    if (!regexPw.test(password)) {
+      return '비밀번호를 확인해주세요!';
+    }
+    if (password !== password2) {
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return '';
+  }, [password, password2]);
+
   const validChecking = useMemo(() => {
-    if ('' !== id && idValid && '' !== password && pwValid && pw2Valid && emailValid && agree) {
+    if ('' !== password && pwMessage && emailMessage && agree) {
       return true;
     }
     return false;
-  }, [id, password, password2, email, agree]);
+  }, [password, password2, email, agree]);
 
   const onSubmit = () => {
     if (validChecking) {
@@ -69,54 +58,42 @@ export const SignupPage = () => {
     setGender(clickedGender);
   };
 
-  const inputUpperCaseCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const regExp = /[^a-z0-9#?!@$%^&*-]/g;
-    const input = event.currentTarget;
-    if (regExp.test(input.value)) {
-      input.value = input.value.replace(regExp, '');
-    }
-  };
-
   return (
-    <div>
-      <InputBox
-        label='아이디'
-        placeholder='영문소문자, 숫자 6-12자 이내'
-        autoComplete='username'
-        setValue={setID}
-        required
-      />
-      {idValid ? '' : <span className={styles.signUpinfo}>아이디는 이메일 형식입니다.</span>}
+    <div className='pb-24 h-full'>
+      <div className='text-4xl text-center mb-20 font-medium mt-20'>회원가입</div>
+      <Link className='mb-20 flex justify-center' to='/'>
+        <UrscentLogo height={40} />
+      </Link>
 
-      <AirBlock height={1} />
+      <InputBox
+        label='이메일'
+        placeholder='이메일을입력해주세요'
+        autoComplete='username'
+        setValue={setEmail}
+        message={emailMessage}
+      />
       <InputBox
         label='비밀번호'
-        placeholder='영문소문자, 숫자, 특수문자 10-20자 이내'
+        placeholder='영문소문자, 숫자, 특수문자 10~20자 이내'
         type='password'
         autoComplete='current-password'
         setValue={setPassword}
-        required
         maxLength={20}
-        inputUpperCaseCheck={inputUpperCaseCheck}
+        second
       />
-      {pwValid ? (
-        ''
-      ) : (
-        <span className={styles.signUpinfo}>
-          비밀번호는 영문소문자, 숫자, 특수문자 10-20자만 가능합니다.
-        </span>
-      )}
-
       <InputBox
         placeholder='비밀번호 재입력'
         type='password'
         autoComplete='current-password'
         setValue={setPassword2}
-        required
+        message={pwMessage}
       />
-      {pw2Valid ? '' : <span className={styles.signUpinfo}>비밀번호가 일치하지 않습니다.</span>}
-
-      <AirBlock height={2.5} />
+      <InputBox
+        label='닉네임'
+        placeholder='사용하실 닉네임을 입력해주세요'
+        type='text'
+        setValue={setNickname}
+      />
       <InputBox
         label='출생 연도'
         placeholder='YYYY'
@@ -124,50 +101,45 @@ export const SignupPage = () => {
         setValue={setBirthYear}
         maxLength={4}
       />
-      <AirBlock height={1} />
       <LabelBox label='성별' />
-      <div className={styles.genderBox}>
-        <div
-          className={'male' === gender ? styles.checking : ''}
+      <div className='mb-14 flex gap-10'>
+        <button
+          // className='male' === gender ? styles.checking : ''
+          className={
+            ('male' === gender ? 'bg-[#4A484B]' : 'bg-[#9859E7]') +
+            ' w-[180px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] hover:bg-[#4A484B] duration-400'
+          }
           onClick={() => handleClickGender('male')}>
           남성
-        </div>
-        <div
-          className={'female' === gender ? styles.checking : ''}
+        </button>
+        <button
+          className={
+            ('female' === gender ? 'bg-[#4A484B]' : 'bg-[#9859E7]') +
+            ' w-[180px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] hover:bg-[#4A484B] duration-400'
+          }
           onClick={() => handleClickGender('female')}>
           여성
-        </div>
+        </button>
       </div>
-      <AirBlock height={1.5} />
-      <InputBox
-        label='Email'
-        placeholder='이메일 주소를 입력하세요.'
-        type='email'
-        setValue={setEmail}
-        required
-      />
-      <div className={styles.signUpinfo}>계정 분실 시 본인인증 정보로 활용됩니다.</div>
-      <AirBlock height={4} />
-      <div className={styles.privacyPolicy}>
+
+      <div className='flex items-center justify-between mb-14'>
         <CheckBox
           label='개인정보 수집 및 이용 동의 (필수)'
-          type='square'
+          labelGap='pl-2.5'
           checked={agree}
           setChecked={setAgree}
         />
-        <Link to='/' className={styles.privacyPolicyDetail}>
+        <Link to='/' className='text-[#333333] opacity-50 text-xl'>
           자세히
         </Link>
       </div>
-      <AirBlock height={3.5} />
-      {/* 추후에 조건 변경 필요 validation to form */}
+
       <button
-        className={`commonButton ${
-          validChecking ? styles.signupButtonActivation : styles.signupButtonDeActivation
-        }`}
-        onClick={onSubmit}>
+        onClick={onSubmit}
+        className='w-[400px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] mt-12 hover:bg-[#4A484B] duration-400'>
         회원가입
       </button>
+      <AirBlock height={3.5} />
     </div>
   );
 };
