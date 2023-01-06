@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export const GuestMenu = () => {
   return (
-    <ul className='flex text-xl font-bold'>
+    <ul className='flex text-lg font-bold'>
       <li className='mr-10'>
         <Link to='account/login'>LOG IN</Link>
       </li>

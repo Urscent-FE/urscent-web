@@ -2,7 +2,12 @@ import React from 'react';
 
 export const SearchIcon: React.FC<IconProps> = ({ fill = '#9859E7' }) => {
   return (
-    <svg width='51' height='40' viewBox='0 0 51 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      width='37.8'
+      height='28.8'
+      viewBox='0 0 51 40'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'
