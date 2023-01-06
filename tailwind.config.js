@@ -21,6 +21,10 @@ module.exports = {
       fontFamily: {
         hk: 'Noto Sans HK',
       },
+      fontSize: {
+        title: ['32px', '46px'],
+        little: ['13px', '19px'],
+      },
     },
   },
   variants: {

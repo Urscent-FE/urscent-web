@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './SearchInput.module.scss';
 import { SearchIcon } from '@/assets/icons/SearchIcon';
 
 export const SearchInput: React.FC<ISearchInputProps> = ({ onInput, onSearch }) => {
@@ -28,7 +27,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({ onInput, onSearch }) 
         onInput={handleInput}
         onKeyPress={handleKeypress}
       /> */}
-      <button className='w-14 h-9 ' onClick={handleOnClickButton}>
+      <button className='mt-[1px]' onClick={handleOnClickButton}>
         <SearchIcon />
       </button>
     </div>

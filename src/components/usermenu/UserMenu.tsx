@@ -10,7 +10,7 @@ export const UserMenu = () => {
   };
 
   return (
-    <ul className='flex text-xl font-bold'>
+    <ul className='flex text-lg font-bold'>
       <li onClick={logOut} className='mr-10'>
         <Link to='/'>LOG OUT</Link>
       </li>

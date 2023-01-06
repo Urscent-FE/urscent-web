@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { CheckBox } from '@/components/checkbox/CheckBox';
 import { Link } from 'react-router-dom';
 import { InputBox } from '@/components/inputbox/InputBox';
 import { UrscentLogo } from '@/assets/icons/UrscentLogo';
@@ -18,7 +17,7 @@ export const FoundAccountPage = () => {
   }, [email]);
 
   return (
-    <div className='pb-24 h-full'>
+    <div className='pb-24 h-full flex flex-col items-center'>
       <div className='text-4xl text-center mb-20 font-medium mt-20'>비밀번호 찾기</div>
       <Link className='mb-20 flex justify-center' to='/'>
         <UrscentLogo height={40} />
@@ -31,10 +30,11 @@ export const FoundAccountPage = () => {
       <InputBox
         placeholder='이메일'
         autoComplete='username'
+        value={email}
         setValue={setEmail}
         message={idMessage}
       />
-      <button className='w-[400px] h-[63px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] mt-2 hover:bg-[#4A484B] duration-400'>
+      <button className='shrink-0 w-[330px] h-[57px] bg-[#9859E7] text-xl text-[#F5F5F5] shadow-default rounded-[20px] mt-2 hover:bg-[#4A484B] duration-400'>
         전송하기
       </button>
       <div className='mt-16 flex justify-center items-center'>
@@ -49,7 +49,7 @@ export const FoundAccountPage = () => {
             fill='#191919'
           />
         </svg>
-        <p className='text-xl ml-5 hover:text-[#000]'>전송 완료!</p>
+        <p className='text-xl ml-[28px] hover:text-[#000]'>전송 완료!</p>
       </div>
       <AirBlock height={3.5} />
     </div>

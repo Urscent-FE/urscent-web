@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { HomeFooter } from '@/components/homefooter/HomeFooter';
 import { HomeHeader } from '@/components/homeheader/HomeHeader';
 
 export const HomePage = () => {
   const [userLogin, setUserLogin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setUserLogin(true);
+    } else {
+      setUserLogin(false);
+    }
+  }, []);
 
   return (
     <div className='init-wrapper'>

@@ -9,6 +9,7 @@ export const AirBlock: React.FC<IAirBoxProps> = ({ height }) => {
     width: '100%',
     height: `${height}rem`,
     backgroundColor: 'transparent',
+    flexShrink: 0,
   };
   return <div style={tempStyle} />;
 };
